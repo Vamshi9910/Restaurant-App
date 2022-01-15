@@ -1,0 +1,608 @@
+<!DOCTYPE html>
+<head>
+    <style>
+      input[type=text]
+      {
+          height: 30px;
+          font-size: 16px;
+          padding: 12px 20px 12px 40px; /* Add some padding */
+          border: 1px solid #ddd; 
+          width: 80%; 
+          margin-bottom: 12px
+      }
+      input[type=tel]
+      {
+         width = 20px;
+      }
+     .left{
+         display: block;
+         width: 600px;
+         float: left; 
+         text-align: center;
+     }
+     .right
+     {
+         display: block; 
+         width: 1200px;
+         float: right;
+         text-align: center;
+     }
+      .tables h2
+     {
+         padding: 20px;
+     }
+     .tables li
+     {
+         display: block;
+         padding: 40px;
+         border: 1px solid black;
+         background-color: lavender;
+         /*margin-bottom: 20px; */
+     } 
+     .menu p
+     {
+         padding-bottom: 20px;
+         font-size: 20px;
+     }
+     .menu h3
+     {
+         padding-top: 10px;
+         font-size: 30px;
+     }
+     .menu li
+     {
+         display: block;
+         padding: 15px;
+         border: 1px solid #ddd;
+         margin-top: -1px;
+         background-color: #f6f6f6;
+     }
+     .modal {
+  display: none; /* Hidden by default */
+  position: fixed; /* Stay in place */
+  z-index: 1; /* Sit on top */
+  padding-top: 300px; /* Location of the box */
+  left: 0;
+  top: 0;
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+  overflow: auto; /* Enable scroll if needed */
+  background-color: rgb(0,0,0); /* Fallback color */
+  background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+    }
+    .modal-content {
+  position: relative;
+  background-color: #fefefe;
+  margin: auto;
+  padding: 0;
+  border: 1px solid #888;
+  width: 50%;
+  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19);
+}
+.modal-header {
+  padding: 2px 16px;
+  background-color:blue;
+  color: white;
+}
+
+.modal-body {padding: 2px 16px;}
+
+.modal-footer {
+  /*  padding: 2px 2px; */
+  padding: 2px; 
+  background-color:indianred;
+  color: white;
+}
+.modal-footer h3
+{
+    text-align: right;
+    padding-right: 5px;
+}
+.close1 , .close3, .close2 {
+  color: white;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+  color: #000;
+  text-decoration: none;
+  cursor: pointer;
+}
+    th,td
+    {
+        padding: 20px;
+        font-size: 20px;
+    }
+    .modal-body p
+    {
+        font-size: 20px;
+        text-align: center;
+        
+    }
+    </style>
+</head>
+<body bgcolor="azure">
+     <div class = "left">
+         <!-- button onclick="lkg()"> Hii </button -->
+         <h1> Table </h1>
+         <input type="text" name="tbl" id="tableText" onkeyup="tableFunction()" placeholder="Search for tables..">
+         <br><br>
+            <div class="tables">
+            <ul id="tableUL">
+                <li id="atable1" ondrop="drop(event)" ondragover="allowDrop(event)" onclick="model1()">
+                 <h2> Table - 1 </h2>
+                 <p id = "table1-data"> </p>
+                 </li>
+                 <li id="btable2" ondrop="drop(event)" ondragover="allowDrop(event)" onclick="model2()">
+                 <h2> Table - 2 </h2>
+                  <p id = "table2-data"> </p>
+                </li>
+                <li id="ctable3" ondrop="drop(event)" ondragover="allowDrop(event)" onclick= "model3()">
+                  <h2> Table - 3 </h2>
+                   <p id = "table3-data"> </p>
+                </li>
+            </ul>
+         </div>
+       </div>  
+
+       <div id="myModal1" class="modal">
+        <div class="modal-content">
+          <div class="modal-header">
+            <span class="close1">&times;</span>
+            <h2> Table-1 | Order Details </h2>
+          </div>
+          <div class="modal-body">
+            <table id = "disp1"></table>
+            <p> Total Price is : <span id ="bill1" ></span></p>
+          </div>
+          <div class="modal-footer">
+           <!-- h3 onclick="location.reload(true)"> Close Session </h3-->
+           <h3 onclick="biller1(this)"> Close Session </h3>
+          </div>
+        </div>
+       </div>
+      
+        <div id="myModal2" class="modal">
+            <div class="modal-content">
+              <div class="modal-header">
+                <span class="close2">&times;</span>
+                <h2> Table-2 | Order Details </h2>
+              </div>
+              <div class="modal-body">
+                <table id = "disp2"></table>
+                <p> Total Price is : <span id ="bill2" ></span></p>
+              </div>
+              <div class="modal-footer">
+                <h3 onclick="biller2(this)"> Close Session </h3>
+              </div>
+            </div>
+            </div>
+
+            <div id="myModal3" class="modal">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <span class="close3">&times;</span>
+                    <h2> Table-3 | Order Details </h2>
+                  </div>
+                  <div class="modal-body">
+                    <table id = "disp3"></table>
+                    <p> Total Price is : <span id ="bill3" ></span></p>
+                  </div>
+                  <div class="modal-footer">
+                    <h3 onclick="biller3(this)"> Close Session </h3>
+                  </div>
+                </div>
+            </div>   
+     <div class="right">
+        <h1> Menu  </h1>
+        <input type="text" name="men" id="menuText" onkeyup="menuFunction()" placeholder="Search for items..">      
+        <div class="menu">
+                <ul id="myUL">
+                <li id="Melted Cheese-400" draggable="true" ondragstart="drag(event)">
+                    <h3>Melted Cheese</h3>
+                    <p> 400 </p>
+                </li>  
+                <li id="French Fries-300" draggable="true" ondragstart="drag(event)">
+                    <h3>French Fries</h3>
+                    <p> 300 </p>
+                </li>
+                <li id="Herbs and Chilli Flakes-300" draggable="true" ondragstart="drag(event)">
+                    <h3>Herbs and Chilli Flakes</h3>
+                    <p> 300 </p>
+                </li>
+                <li id="Hyderabad Biryani-250" draggable="true" ondragstart="drag(event)">
+                    <h3>Hyderabad Biryani</h3>
+                     <p> 250 </p>
+                </li>
+            </ul>
+            </div>
+       </div>
+       <script>
+        const table1Obj = [];  
+        const table2Obj = []; 
+        const table3Obj = []; 
+        const MenuObj = new Map();
+        MenuObj.set("Melted Cheese" , "STARTER");
+        MenuObj.set("French Fries", "STARTER");
+        MenuObj.set("Herbs and Chilli Flakes", "MAIN");
+        MenuObj.set("Hyderabad Biryani", "DESERT");
+        
+       function biller1(e)
+       {
+         let sum = 0;
+        for(let j=0;j<table1Obj.length;j++)
+          {
+             sum += Number(table1Obj[j].vector) * Number(table1Obj[j].price);
+          }
+          alert("Your Bill is "+sum);
+          location.reload();
+       }
+
+       function biller2(e)
+       {
+         let sum = 0;
+        for(let j=0;j<table2Obj.length;j++)
+          {
+             sum += Number(table2Obj[j].vector) * Number(table2Obj[j].price);
+          }
+          alert("Your Bill is "+sum);
+          location.reload();
+       }
+       
+       function biller3(e)
+       {
+         let sum = 0;
+        for(let j=0;j<table3Obj.length;j++)
+          {
+             sum += Number(table3Obj[j].vector) * Number(table3Obj[j].price);
+          }
+          alert("Your Bill is "+sum);
+          location.reload();
+       }
+
+
+        var total1 = 0,total2 = 0,total3 = 0;
+        function menuFunction() {
+            var input, filter, ul, li, a, i, txtValue;
+            input = document.getElementById("menuText");
+            filter = input.value.toUpperCase();
+            ul = document.getElementById("myUL");
+            li = ul.getElementsByTagName("li");
+            //let starter = "STARTER";
+            for (i = 0; i < li.length; i++) {
+                a = li[i].getElementsByTagName("h3")[0];
+                txtValue = a.textContent || a.innerText;
+                if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                   li[i].style.display = "";
+                } 
+                else if(MenuObj.get(txtValue).indexOf(filter) > -1) {
+                   li[i].style.display = "";
+                } 
+                else {
+                    li[i].style.display = "none";
+                }
+            }
+        }
+        function tableFunction(){
+            var input, filter, ul, li, a, i, txtValue;
+            input = document.getElementById("tableText");
+            filter = input.value.toUpperCase();
+            ul = document.getElementById("tableUL");
+            li = ul.getElementsByTagName("li");
+            for (i = 0; i < li.length; i++) {
+                a = li[i].getElementsByTagName("h2")[0];
+                txtValue = a.textContent || a.innerText;
+                if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                    li[i].style.display = "";
+                } else {
+                    li[i].style.display = "none";
+                }
+            }
+        }
+
+        function computeTotal(arr,span_id)
+       {
+             let sum = 0;
+             for(let i=0;i<arr.length;i++){
+               sum += Number(arr[i].price);
+             }
+             document.getElementById(span_id).innerHTML = sum;
+       }
+
+       function removetable1Row(r) {
+          var table_id = r.parentNode.parentNode.parentNode.parentNode.id;
+         var i = r.parentNode.parentNode.rowIndex;
+         let cp = i;
+         var tableref = document.getElementById(table_id);
+       var p =  tableref.nextElementSibling;
+       let span_id = p.getElementsByTagName("span")[0].id;
+       //p.getElementsByTagName("span")[0].style.backgroundColor = "red";
+       document.getElementById(table_id).deleteRow(i);
+       table1Obj.splice(cp-1,1);
+       computeTotal(table1Obj,span_id);
+           }
+ 
+        function removetable2Row(r) {
+          var table_id = r.parentNode.parentNode.parentNode.parentNode.id;
+         var i = r.parentNode.parentNode.rowIndex;
+         let cp = i;
+       var tableref = document.getElementById(table_id);
+       var p =  tableref.nextElementSibling;
+       let span_id = p.getElementsByTagName("span")[0].id;
+       //p.getElementsByTagName("span")[0].style.backgroundColor = "red";
+       document.getElementById(table_id).deleteRow(i);
+       table2Obj.splice(cp-1,1);
+       computeTotal(table2Obj,span_id);
+    
+           }
+
+        function removetable3Row(r) {
+          var table_id = r.parentNode.parentNode.parentNode.parentNode.id;
+         var i = r.parentNode.parentNode.rowIndex;
+         let cp = i;
+       var tableref = document.getElementById(table_id);
+       var p =  tableref.nextElementSibling;
+       let span_id = p.getElementsByTagName("span")[0].id;
+       //p.getElementsByTagName("span")[0].style.backgroundColor = "red";
+       document.getElementById(table_id).deleteRow(i);
+       table3Obj.splice(cp-1,1);
+       computeTotal(table3Obj,span_id);
+    
+           }
+
+        function incrementerTotal1(e)
+        {
+          var i = e.parentNode.parentNode.rowIndex;
+          let k = i-1,sum = 0;
+         var x = document.getElementById("disp1").rows[i].cells[3];
+         let y = x.getElementsByTagName("input")[0].id;
+         let val =  Number( document.getElementById(y).value ); 
+          console.log(val);
+         // console.log(orgin_price);
+          table1Obj[k].vector = val;
+          for(let j=0;j<table1Obj.length;j++)
+          {
+             sum += Number(table1Obj[j].vector) * Number(table1Obj[j].price);
+          }
+          document.getElementById("bill1").innerHTML = sum; 
+        }
+
+        function incrementerTotal2(e)
+        {
+          var i = e.parentNode.parentNode.rowIndex;
+          let k = i-1,sum = 0;
+         var x = document.getElementById("disp2").rows[i].cells[3];
+         let y = x.getElementsByTagName("input")[0].id;
+         let val =  Number( document.getElementById(y).value ); 
+          console.log(val);
+         // console.log(orgin_price);
+          table2Obj[k].vector = val;
+          for(let j=0;j<table2Obj.length;j++)
+          {
+             sum += Number(table2Obj[j].vector) * Number(table2Obj[j].price);
+          }
+          document.getElementById("bill2").innerHTML = sum; 
+        }
+
+        function incrementerTotal3(e)
+        {
+          var i = e.parentNode.parentNode.rowIndex;
+          let k = i-1,sum = 0;
+         var x = document.getElementById("disp3").rows[i].cells[3];
+         let y = x.getElementsByTagName("input")[0].id;
+         let val =  Number( document.getElementById(y).value ); 
+          console.log(val);
+         // console.log(orgin_price);
+          table3Obj[k].vector = val;
+          for(let j=0;j<table3Obj.length;j++)
+          {
+             sum += Number(table3Obj[j].vector) * Number(table3Obj[j].price);
+          }
+          document.getElementById("bill3").innerHTML = sum; 
+        }
+
+        function model1()
+        {
+            var modal = document.getElementById("myModal1");
+            var span = document.getElementsByClassName("close1")[0];
+            modal.style.display = "block";
+            var getTable1 = document.getElementById("disp1");
+            let k = "<tr><th> S.No </th><th> Items </th> <th> Prices </th><th> k </th></tr>";
+            getTable1.innerHTML += k;
+            let num = 1,sum=0;
+            for(let i=0;i<table1Obj.length;i++){
+                //sum += Number(table1Obj[i].price);
+                // console.log(table1Obj[i].item+" "+table1Obj[i].price);
+                let item = table1Obj[i].item;
+                let price = table1Obj[i].price;
+                let h = "<tr id = 'pi'><td>"+num+"</td><td>"+item+"</td><td>"+price+"</td>";
+                h += '<td><input type="number" id ="this'+num+'" value = "1" min="0" step="1" max="10" oninput ="incrementerTotal1(this)" ></td>';
+                id = i;
+                h += '<td><h4 onclick = "removetable1Row(this)"> Delete </h4></td></tr>';
+                getTable1.innerHTML += h; 
+                sum +=  Number(table1Obj[i].price);
+                num++;
+            }
+           total1 = sum;
+           computeTotal(table1Obj,"bill1");
+          // document.getElementById("bill1").innerHTML = computeTotal(table1Obj,)
+           //getTable1.innerHTML += "<p> Total Price is "+sum+"</p>"
+            span.onclick = function() {
+            modal.style.display = "none";
+              }
+          window.onclick = function(event) {
+              if (event.target == modal) {
+             modal.style.display = "none";
+            }
+                  }
+        }  
+
+        function model2()
+        {
+            var modal = document.getElementById("myModal2");
+            var span = document.getElementsByClassName("close2")[0];
+            modal.style.display = "block";
+            var getTable1 = document.getElementById("disp2");
+            let k = "<tr><th> S.No </th><th> Items </th> <th> Prices </th></tr>";
+            getTable1.innerHTML += k;
+            let num = 1,sum=0;
+            for(let i=0;i<table2Obj.length;i++){
+                // console.log(table1Obj[i].item+" "+table1Obj[i].price);
+                let item = table2Obj[i].item;
+                let price = table2Obj[i].price;
+                let h = "<tr><td>"+num+"</td><td>"+item+"</td><td>"+price+"</td>";
+                  h += '<td><input type="number" id ="this'+num+'" value = "1" min="0" step="1" max="4" onchange="incrementerTotal2(this)" ></td>';
+                //h += '<td><input type="number" id ="this1" min="0" step="1" max="4"></td>';
+                id = i;
+                h += '<td><h4 onclick = "removetable2Row(this)"> Delete </h4></td></tr>';
+                getTable1.innerHTML += h; 
+                sum +=  Number(table2Obj[i].price);
+                num++;
+            }
+            total2 = sum;
+            computeTotal(table2Obj,"bill2");
+            //document.getElementById("bill2").innerHTML = total2;
+            span.onclick = function() {
+            modal.style.display = "none";
+              }
+          window.onclick = function(event) {
+              if (event.target == modal) {
+             modal.style.display = "none";
+            }
+                  }
+        } 
+        
+        function model3()
+        {
+            var modal = document.getElementById("myModal3");
+            var span = document.getElementsByClassName("close3")[0];
+            modal.style.display = "block";
+            var getTable1 = document.getElementById("disp3");
+            let k = "<tr><th> S.No </th><th> Items </th> <th> Prices </th></tr>";
+            getTable1.innerHTML += k;
+            let num = 1,sum=0;
+            for(let i=0;i<table3Obj.length;i++){
+                // console.log(table1Obj[i].item+" "+table1Obj[i].price);
+                let item = table3Obj[i].item;
+                let price = table3Obj[i].price;
+                let h = "<tr><td>"+num+"</td><td>"+item+"</td><td>"+price+"</td>";
+                  h += '<td><input type="number" id ="this'+num+'" value = "1" min="0" step="1" max="4" onchange="incrementerTotal3(this)" ></td>';
+               // h += '<td><input type="number" id ="this1" min="0" step="1" max="4"></td>';
+                id = i;
+                h += '<td><h4 onclick = "removetable3Row(this)"> Delete </h4></td></tr>';
+                getTable1.innerHTML += h; 
+                sum +=  Number(table3Obj[i].price);
+                num++;
+            }
+           total3 = sum;
+           computeTotal(table3Obj,"bill3");
+           //document.getElementById("bill3").innerHTML = total3;
+            span.onclick = function() {
+            modal.style.display = "none";
+              }
+          window.onclick = function(event) {
+              if (event.target == modal) {
+             modal.style.display = "none";
+            }
+                  }
+        }       
+
+        function Test()
+        {
+            for(let i=0;i<table2Obj.length;i++){
+                console.log(table2Obj[i]);
+               
+            }
+        }
+        function displayer(item,price)
+        {
+            this.price = price;
+            this.item = item;
+            this.vector = 1;
+        }
+        function table1Price(data)
+        {
+            const Arr = data.split("-");
+            let sample = new displayer(Arr[0],Arr[1]);
+            let sum = 0;
+            table1Obj.push(sample);
+            for(let i=0;i<table1Obj.length;i++){
+                sum += Number(table1Obj[i].price);
+                // console.log(table1Obj[i].item+" "+table1Obj[i].price);
+            }
+            let s = "Rs:"+sum+" | Total items "+table1Obj.length;
+            document.getElementById("table1-data").innerHTML = s;
+        }
+        function table2Price(data)
+        {
+            const Arr = data.split("-");
+            let sample = new displayer(Arr[0],Arr[1]);
+            let sum = 0;
+            table2Obj.push(sample);
+            for(let i=0;i<table2Obj.length;i++){
+                sum += Number(table2Obj[i].price);
+               // console.log(table2Obj[i].item+" "+table2Obj[i].price);
+            }
+            let s = "Rs:"+sum+" | Total items "+table2Obj.length;
+            document.getElementById("table2-data").innerHTML = s;
+        }
+        function table3Price(data)
+        {
+            const Arr = data.split("-");
+            let sample = new displayer(Arr[0],Arr[1]);
+            let sum = 0;
+            table3Obj.push(sample);
+            for(let i=0;i<table3Obj.length;i++){
+                sum += Number(table3Obj[i].price);
+              //  console.log(table3Obj[i].item+" "+table3Obj[i].price);
+            }
+            let s = "Rs:"+sum+" | Total items "+table3Obj.length;
+            document.getElementById("table3-data").innerHTML = s;
+        }
+        function tableViewer(x,data)
+        {
+            /*if(x == "atable1"){
+                table1Price(data);
+             }
+            else if(x == "btable2"){
+               table2Price(data);
+             }
+           else if(x == "ctable3") 
+            {
+              table3Price(data);
+            } */
+            switch(x)
+            {
+                case "atable1" : table1Price(data);
+                                 break;
+                case "btable2" : table2Price(data);
+                                 break; 
+                case "ctable3" : table3Price(data);
+                                 break;   
+                default : break;                         
+            }
+        }
+        function allowDrop(ev) {
+        ev.preventDefault();
+        }
+        function drag(ev) {
+        ev.dataTransfer.setData("text", ev.target.id);
+        }
+        function drop(ev) {
+        ev.preventDefault();
+        var data = ev.dataTransfer.getData("text");
+        console.log(data);
+     //   var c = document.getElementById(data);
+      //  var ck = c.getElementsByTagName("h3")[0].textContent;
+      // console.log(ck);
+        console.log(ev.target.id);
+        let x = ev.target.id;
+        tableViewer(x,data);
+        x="";
+        }
+        </script>     
+</body>
+</html>
